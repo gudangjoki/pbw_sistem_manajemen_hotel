@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ResepsionisController extends Controller
 {
     public function index() {
-        return view('resepsionis');
+        return view('resepsionis.dashboard');
     }
 
     public function assign_new_room(Request $request) {
