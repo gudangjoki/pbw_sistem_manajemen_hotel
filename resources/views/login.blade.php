@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('lte/dist/css/adminlte.min.css') }}">
     <style>
         .login-page {
-            background: url('{{ asset('img/background.jpg') }}') no-repeat center center fixed;
+            background: url("{{ asset('img/background.jpg') }}") no-repeat center center fixed;
             background-size: cover;
         }
     </style>
@@ -31,10 +31,11 @@
             <div class="card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="../../index3.html" method="post">
+                <form action="/login" method="post">
+                    @csrf
                     <label for="" class="text-muted">Username</label>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Enter username...">
+                        <input type="text" name="username" class="form-control" placeholder="Enter username...">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -43,7 +44,7 @@
                     </div>
                     <label for=""  class="text-muted">Password</label>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Enter password...">
+                        <input type="password" name="password" class="form-control" placeholder="Enter password...">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -81,7 +82,7 @@
                     <a href="forgot-password.html">I forgot my password</a>
                 </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                    <a href="/register" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.card-body -->

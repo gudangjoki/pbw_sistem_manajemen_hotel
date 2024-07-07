@@ -20,13 +20,13 @@ class RegisterController extends Controller
         try {
             $validate = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|confirmed',
+                'username' => 'required|string|max:255|unique:users',
+                'password' => 'required|string',
             ]);
         
             $new_user = new User;
             $new_user->name = $validate['name'];
-            $new_user->email = $validate['email'];
+            $new_user->username  = $validate['username'];
             $new_user->password = bcrypt($validate['password']);
             $new_user->save();
     

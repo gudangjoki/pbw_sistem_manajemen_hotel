@@ -15,15 +15,15 @@ class LoginController extends Controller
     }
 
     public function login(Request $request) {
-        $email_req = $request->email;
-        $user = User::where('email', $email_req)->first();
+        $username = $request->username;
+        $user = User::where('username', $username)->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
 
                 // $request->session()->put('user', $user);
-                $email = $user->email;
+                $username = $user->username;
                 // $role = $user->role;
-                $role_user = User::leftJoin("role_user", "users.email", "=", "role_user.email")->select('role_user.role_id', 'users.email')->where('users.email', strval($email))->get();
+                $role_user = User::leftJoin("role_user", "users.username", "=", "role_user.username")->select('role_user.role_id', 'users.username')->where('users.username', $username)->get();
 
                 error_log($role_user);
                 // $role = $role_user->role_id;
@@ -58,9 +58,9 @@ class LoginController extends Controller
                     }
                 }
 
-                return redirect('login')->withErrors(['email' => 'no role assigned in this email']);
+                return redirect('login')->withErrors(['username' => 'no role assigned in this username']);
             } else {
-                return redirect('login')->withErrors(['email' => 'Invalid email or password']);
+                return redirect('login')->withErrors(['username' => 'Invalid username or password']);
             }
     }
 }

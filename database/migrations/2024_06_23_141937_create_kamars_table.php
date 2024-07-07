@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('id_kamar');
             $table->string('nomor_kamar');
             $table->string('tipe_kamar');
-            $table->bigInteger('harga_kamar');
             // $table->text('fasilitas');
             $table->text('deskripsi')->nullable();
             $table->string('status_kamar');
