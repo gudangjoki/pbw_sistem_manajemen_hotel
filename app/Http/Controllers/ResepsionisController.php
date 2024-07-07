@@ -39,6 +39,30 @@ class ResepsionisController extends Controller
     public function edit_room(Request $request, string $id_kamar) {
         $intIdKamar = strval($id_kamar);
 
+        $validated = $request->validate([
+            'tipe_kamar' => 'required|string',
+            'harga_kamar' => 'required|string',
+            'status_kamar' => 'required|boolean',
+        ]);
+
+        $kamar = Kamar::where('id_kamar', $intIdKamar)->first();
+
+        // $kamar->nomor_kamar = $new_nomor_kamar;
+        $kamar->tipe_kamar = $validated['tipe_kamar'];
+        $kamar->harga_kamar = $validated['harga_kamar'];
+        $kamar->deskripsi = $validated['deskripsi'];
+        // $kamar->status_kamar = 1;
+
+        $kamar->save();
+
+        return redirect()->back()->with('status', 'sukses menambahkan kamar');
+    }
+
+    public function delete_room(string $id_kamar) {
+
+    }
+
+    public function list_all_room() {
         
     }
 }
