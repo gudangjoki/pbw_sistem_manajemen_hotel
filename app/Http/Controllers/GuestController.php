@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class GuestController extends Controller
 {
     public function index() {
-        return view('menu');
+        return view('guest.dashboard');
     }
 
     public function create_booking(Request $request) {

@@ -19,11 +19,13 @@ Route::post("/register", [RegisterController::class, 'register']);
 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/guest/dashboard', [GuestController::class, 'index'])->name('guest.dashboard');
-Route::get('/resepsionis/dashboard', [GuestController::class, 'index'])->name('resepsionis.dashboard');
+Route::get('/resepsionis/dashboard', [ResepsionisController::class, 'index'])->name('resepsionis.dashboard');
 Route::get('/finance/dashboard', [GuestController::class, 'index'])->name('finance.dashboard');
 Route::get('/room_master/dashboard', [GuestController::class, 'index'])->name('room_master.dashboard');
 
 Route::post('/role', [AdminController::class, 'assign_role']);
 
 Route::post('/room', [ResepsionisController::class, 'assign_new_room']);
+
+Route::get('/guest/detail_kamar', [GuestController::class, 'index'])->name('guest.dashboard');
 
