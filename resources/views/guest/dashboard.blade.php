@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('lte/dist/css/adminlte.min.css') }}">
     <style>
         .hero-section {
-            background-image: url('{{ asset('img/background.jpg') }}');
+            background-image: url("{{ asset('img/background.jpg') }}");
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -167,13 +167,13 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="/dashboard/home" class="nav-link">Kamar</a>
+                            <a href="/guest/dashboard/kamar" class="nav-link">Kamar</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/dashboard/histori" class="nav-link">Fasilitas</a>
+                            <a href="/guest/dashboard/fasilitas" class="nav-link">Fasilitas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/dashboard/histori" class="nav-link">Wisata Terdekat</a>
+                            <a href="/guest/dashboard/guest" class="nav-link">Wisata Terdekat</a>
                         </li>
                     </ul>
                 </div>
@@ -198,7 +198,11 @@
         <!-- /.navbar -->
         <!-- buatkan switch case untuk router -->
         <!-- case 1 routerkan ini ke page 1 yang dilihat user -->
-            <!-- include('guest.landing') -->
+        @switch($result)
+        @case(in_array('home', $result) && in_array('dashboard', $result))
+            @include('guest.landing')
+        @break
+        @endswitch
         <!-- break -->
         <!-- case 2 buatkan rute untuk detail kamar yang pilih oleh user  -->
             @include('guest.list_kamar_detail')

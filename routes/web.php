@@ -29,3 +29,5 @@ Route::post('/room', [ResepsionisController::class, 'assign_new_room']);
 
 Route::get('/guest/detail_kamar', [GuestController::class, 'index'])->name('guest.dashboard');
 
+
+Route::get('/guest/dashboard/{section}', [GuestController::class, 'show_feature']);
