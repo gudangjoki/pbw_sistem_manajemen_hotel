@@ -24,10 +24,12 @@
                             <td>{{$booking->check_in}}</td>
                             <td>{{$booking->check_out}}</td>
                             <td><span class="badge badge-warning">{{$booking->status}}</span></td>
-                            <td class="project-actions text-right">              
+                            <td class="project-actions text-right"> 
+                            @if($booking->status != 'pending')             
                                 <a href="/guest/dashboard/history/{{$booking->id_booking_room}}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-folder"></i> View
                                 </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
