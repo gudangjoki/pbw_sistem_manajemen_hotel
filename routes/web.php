@@ -35,7 +35,14 @@ Route::get('/guest/dashboard/{section}/{history_id?}', [GuestController::class, 
 Route::post('/check_date_temp', [GuestController::class, 'send_to_payment']);
 Route::post('/pay_room_booking', [GuestController::class, 'create_pay_booking']);
 
-Route::get('/resepsionis/dashboard/{section}', [ResepsionisController::class, 'resepsionis_dashboard']);
+Route::get('/resepsionis/dashboard/{section}', [ResepsionisController::class, 'resepsionis_dashboard'])->name('resepsionis.dashboard');
+Route::get('/resepsionis/dashboard/list_konfirmasi', [ResepsionisController::class, 'showListKonfirmasi'])->name('resepsionis.list_konfirmasi');
+Route::get('/resepsionis/dashboard/detail_konfirmasi', [ResepsionisController::class, 'showDetailKonfirmasi'])->name('resepsionis.detail_konfirmasi');
+Route::get('/resepsionis/dashboard/list_verifikasi', [ResepsionisController::class, 'showListVerifikasi'])->name('resepsionis.list_verifikasi');
+Route::get('/resepsionis/dashboard/list_kamar_status', [ResepsionisController::class, 'showStatusKamar'])->name('resepsionis.list_kamar_status');
+Route::get('/resepsionis/dashboard/calender', [ResepsionisController::class, 'showCalender'])->name('resepsionis.calender');
+Route::get('/resepsionis/dashboard/detail_verifikasi', [ResepsionisController::class, 'showDetailVerifikasi'])->name('resepsionis.detail_verifikasi');
+
 
 Route::delete('/cancel/{id_booking_room}', [GuestController::class, 'delete_booking_room']);
 

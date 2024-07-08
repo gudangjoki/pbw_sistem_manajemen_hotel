@@ -1,4 +1,3 @@
-
 <div class="content-header">
     <div class="container-fluid px-md-5 mt-md-5 ml-0 mt-0">
         <h1>Detail Konfirmasi</h1>
