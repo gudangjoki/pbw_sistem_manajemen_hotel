@@ -38,8 +38,8 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h3 class="text-light"><i class="fas fa-th-large pr-3"></i> Kamar Deluxe</h3>
-                            <p class="text-muted">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                            <h3 class="text-light"><i class="fas fa-th-large pr-3"></i>{{ $detail->nama_tipe_kamar }}</h3>
+                            <p class="text-muted">{{ $detail->deskripsi }}</p>
                             <br>
                             <div class="text-muted pb-3">
                                 <p class="text-sm">Fasilitas

@@ -167,7 +167,7 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="/guest/dashboard/kamar" class="nav-link">Kamar</a>
+                            <a href="/guest/dashboard/home" class="nav-link">Kamar</a>
                         </li>
                         <li class="nav-item">
                             <a href="/guest/dashboard/fasilitas" class="nav-link">Fasilitas</a>
@@ -202,10 +202,13 @@
         @case(in_array('home', $result) && in_array('dashboard', $result))
             @include('guest.landing')
         @break
-        @endswitch
         <!-- break -->
         <!-- case 2 buatkan rute untuk detail kamar yang pilih oleh user  -->
+         <!-- cek apakah beberapa value dari array id_tipe_kamar ada di array result? -->
+          
+        @case(in_array(explode("_", $result['segment3'])[1], $ids) && in_array('dashboard', $result))
             @include('guest.list_kamar_detail')
+        @endswitch
         <!-- break -->
     </div>
     @include('../component.layout.footer')

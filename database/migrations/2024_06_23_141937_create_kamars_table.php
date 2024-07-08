@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('kamar', function (Blueprint $table) {
             $table->id('id_kamar');
             $table->string('nomor_kamar');
-            $table->string('tipe_kamar');
-            // $table->text('fasilitas');
-            $table->text('deskripsi')->nullable();
+            $table->string('id_tipe_kamar');
             $table->string('status_kamar');
             $table->timestamps();
+
+            // $table->foreign('id_tipe_kamar')->references('id_tipe_kamar')->on('kategori_kamar');
         });
     }
 

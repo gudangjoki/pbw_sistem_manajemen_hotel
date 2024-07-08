@@ -14,19 +14,21 @@
                 <div class="col-12 text-center">
                     <h2 id="rooms" class="mb-5">Our Rooms</h2>
                 </div>
+                @foreach($tipe_kamars as $tipe_kamar)
                 <div class="col-md-4 mb-4">
                     <div class="card room-card">
                         <div class="room-rating">9.0</div>
                         <img src="{{ asset('img/background.jpg') }}" class="card-img-top" alt="Deluxe Room">
                         <div class="room-card-body">
-                            <h5 class="card-title">Deluxe Room</h5>
-                            <p class="card-text">A luxurious room with all the modern amenities.</p>
-                            <p class="room-price">IDR 1,500,000</p>
-                            <a href="#" class="btn btn-primary float-right">View Details</a>
+                            <h5 class="card-title">{{ $tipe_kamar['nama_tipe_kamar'] }}</h5>
+                            <p class="card-text">{{ $tipe_kamar['deskripsi'] }}</p>
+                            <p class="room-price">{{ $tipe_kamar['harga_kamar'] }}</p>
+                            <a href="{{ url('/guest/dashboard/detail_' . $tipe_kamar['id_tipe_kamar']) }}" class="btn btn-primary float-right">View Details</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                @endforeach
+                <!-- <div class="col-md-4 mb-4">
                     <div class="card room-card">
                         <div class="room-rating">8.5</div>
                         <img src="{{ asset('img/background.jpg') }}" class="card-img-top" alt="Suite">
@@ -34,7 +36,7 @@
                             <h5 class="card-title">Suite</h5>
                             <p class="card-text">Experience the ultimate in luxury and comfort.</p>
                             <p class="room-price">IDR 2,500,000</p>
-                            <a href="#" class="btn btn-primary float-right">View Details</a>
+                            <a href="/guest/dashboard/detail" class="btn btn-primary float-right">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,7 @@
                             <a href="#" class="btn btn-primary float-right">View Details</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Facilities Section -->

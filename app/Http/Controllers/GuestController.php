@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+class Helper {
+    public static function getId() {
+        // $id_tipe_kamar = [];
+        $kamars = DB::table('kategori_kamar')->get(['id_tipe_kamar']);
+        foreach ($kamars as $kamar) {
+            $id_tipe_kamar[] = $kamar->id_tipe_kamar;
+        }
+        return $id_tipe_kamar;
+    }    
+}
+
 class GuestController extends Controller
 {
     public function index() {
@@ -75,77 +86,63 @@ class GuestController extends Controller
             $result['segment' . ($index + 1)] = $segment;
         }
     
-        $books = [];
-    
-        // if (in_array('buku', $result)) {
+        $data_kamar_status = [];
+        $id_tipe_kamar = [];
+        $kategori = null;
+        $ids = Helper::getId();
 
-        // }
+        // landing page
+        if (in_array('home', $result)) {
+        $data_kategori_kamar = DB::table('kategori_kamar')->get();
+        
+        // dd($data_kategori_kamar);
+
+        // $data_kamar_status = [];
+        foreach ($data_kategori_kamar as $kamar) {
+            $idle_room = Kamar::where('id_tipe_kamar', $kamar->id_tipe_kamar)->where('status_kamar', 'available')->count();
+
+            // if ($idle_room == 0) {
+            //     $data_kategori_kamar[$kamar->id_tipe_kamar] = 1;
+            // } else {
+            //     $data_kategori_kamar[$kamar->id_tipe_kamar] = 0;
+            // }
+            $data_kamar_status[] = [
+                'id_tipe_kamar' => $kamar->id_tipe_kamar,
+                'nama_tipe_kamar' => $kamar->nama_tipe_kamar,
+                'harga_kamar' => $kamar->harga_kamar,
+                'cover' => $kamar->cover,
+                'deskripsi' => $kamar->deskripsi,
+                'idle_room' => $idle_room == 0 ? 1 : 0 // kalo 1 itu yes dia penuh, kalo 0 dia kosong
+            ];
+
+            $id_tipe_kamar[] = $kamar->id_tipe_kamar;
+        }
 
 
-        // if (in_array('denda', $result)) {
-        //     $currTimeSec = Carbon::now()->timestamp;
-        
-        //     $dateDay = Carbon::now()->addDays(3)->timestamp;
-        
-        //     $distinctUsernames = RentLog::whereNull('actual_return_date')
-        //         ->distinct()
-        //         ->pluck('username');
-        
-        //     $forfeitIds = [];
-        
-        //     foreach ($distinctUsernames as $username) {
-        //         $logs = RentLog::where('username', $username)
-        //             ->whereNull('actual_return_date')
-        //             ->get(['id']);
-                
-        //         foreach ($logs as $log) {
-        //             $forfeitIds[] = $log->id;
-        //         }
-        //     }
-        
-        //     $users = RentLog::leftJoin('users', 'rent_logs.username', '=', 'users.username')
-        //         ->whereIn('users.username', $distinctUsernames)
-        //         ->whereNotNull('rent_logs.rent_date')
-        //         ->whereNotNull('rent_logs.return_date')
-        //         ->distinct('users.username')
-        //         ->get(['users.username', 'users.phone']);
-            
-        //     $arr = [];
-        //     foreach ($users as $user) {
-        //         foreach ($forfeitIds as $id) {
-        //             $rentLog = RentLog::where('id', $id)
-        //                 ->where('username', $user->username)
-        //                 ->whereNotNull('rent_date')
-        //                 ->whereNotNull('return_date')
-        //                 ->where('return_date', '<', Carbon::now()->toDateTimeString())
-        //                 ->first();
-                    
-        //             if ($rentLog) {
-        //                 if (!isset($arr[$user->username])) {
-        //                     $arr[$user->username] = [];
-        //                 }
-        //                 $book_code = $rentLog->book_code;
-        //                 // join rentlog dan book get id dan data buku
-        //                 $book = Book::where('book_code', $book_code)->get();
-        //                 if (!in_array($book, $arr[$user->username])) {
-        //                     $arr[$user->username][] = $book;
-        //                 }
-        //             }
-        //         }
-        //     }
 
-        //     $uniqueUsers = [];
-        //     foreach ($users as $user) {
-        //         if (!isset($uniqueUsers[$user->username])) {
-        //             $uniqueUsers[$user->username] = $user;
-        //         }
-        //     }
-        
-        //     $categories = Category::all();
-        // }
+        // dd($data_kamar_status);
+
+        // return $data_kamar_status
+        }
+
+        else if (in_array(explode("_", $result['segment3'])[1], Helper::getId()) && in_array('dashboard', $result)) {
+            // dd(Helper::getId());
+
+            $param = explode("_", $result['segment3'])[1];
+
+            $kategori = DB::table('kategori_kamar')->where('id_tipe_kamar', $param)->first();
+
+            // dd($kategori);
+        }
+
         
         return view('guest.dashboard', [
             'result' => $result,
+            'tipe_kamars' => $data_kamar_status,
+            'ids' => $ids,
+            'detail' => $kategori,
+
+            'id_tipe_kamar' => $id_tipe_kamar,
             // 'section' => $section,
             // 'books' => $books,
             // 'pinjam' => $pinjam,
