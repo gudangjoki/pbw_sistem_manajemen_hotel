@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Hotel Landing Page</title>
+    <title>Landing | Hotel Landing Page</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -175,6 +175,9 @@
                         <li class="nav-item">
                             <a href="/dashboard/histori" class="nav-link">Wisata Terdekat</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/dashboard/histori" class="nav-link">History</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -201,8 +204,13 @@
             <!-- include('guest.landing') -->
         <!-- break -->
         <!-- case 2 buatkan rute untuk detail kamar yang pilih oleh user  -->
-            @include('guest.list_kamar_detail')
+            <!-- include('guest.list_pembayaran') -->
+        <!-- case 3 buatkan rute untuk Pembayaran setelah klik booking oleh user -->
         <!-- break -->
+        <!-- case 4 buatkan rute untuk histori bookingan tombol klik berada pada header -->
+        <!-- include('guest.list_histori_booking') -->
+        <!-- break -->
+        @include('guest.list_verifikasi_booking')
     </div>
     @include('../component.layout.footer')
 

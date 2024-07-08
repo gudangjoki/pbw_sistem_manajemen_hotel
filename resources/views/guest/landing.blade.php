@@ -14,6 +14,8 @@
                 <div class="col-12 text-center">
                     <h2 id="rooms" class="mb-5">Our Rooms</h2>
                 </div>
+
+                <!-- tambahkan data kamar disini -->
                 <div class="col-md-4 mb-4">
                     <div class="card room-card">
                         <div class="room-rating">9.0</div>
