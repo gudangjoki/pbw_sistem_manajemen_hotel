@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('id_kamar')->unsigned()->nullable();
             $table->string('id_tipe_kamar');
             $table->enum('status', ['pending', 'confirmed', 'checked_in', 'checked_out', 'cancelled'])->default('pending');
+            $table->string('verification_note')->nullable();
             $table->integer('harga_kamar')->nullable();
             $table->date('check_in');
             $table->date('check_out');
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->foreign('username')->references('username')->on('users');
             $table->foreign('id_kamar')->references('id_kamar')->on('kamar');
 
-                        // $table->foreign('verified_by')->references('username')->on('users');
+            // $table->foreign('verified_by')->references('username')->on('users');
             $table->timestamps();
         });
     }

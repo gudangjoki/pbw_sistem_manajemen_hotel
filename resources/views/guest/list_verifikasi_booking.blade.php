@@ -11,14 +11,14 @@
                     <div class="form-group">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Status</label>
-                            <input type="text" name="password" class="form-control" placeholder="Terverifikasi">
+                            <input type="text" name="password" class="form-control" placeholder="{{$booking->status}}" disabled>
                         </div>
                         <label for="exampleInputEmail1">ID BOOKING</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ID Booking">
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="{{$booking->id_booking_room}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Keterangan</label>
-                        <input type="text" name="password" class="form-control" placeholder="Keterangan">
+                        <input type="text" name="password" class="form-control" placeholder="{{$booking->catatan_verifikasi}}">
                     </div>
                 </div>
                 <div class="card-footer">
