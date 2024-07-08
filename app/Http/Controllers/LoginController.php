@@ -41,6 +41,11 @@ class LoginController extends Controller
                     
                 }
 
+                $request->session()->put('user', [
+                    'username' => $username,
+                    'role_id' => $roles // bug perlu roles banyak
+                ]);
+
                 if ($admin) {
                     return redirect()->route('admin.dashboard');
                 }
@@ -49,7 +54,9 @@ class LoginController extends Controller
                 error_log($roles_tb);
 
                 if (count($roles) == 1 && in_array(1, $roles)) {
-                    return redirect()->route('guest.dashboard');
+                    // dd($request->session()->get('user'));
+
+                    return redirect('/guest/dashboard/home');
                 }
 
                 foreach ($roles_tb as $role) {

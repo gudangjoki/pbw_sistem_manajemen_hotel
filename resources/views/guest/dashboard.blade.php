@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Hotel Landing Page</title>
+    <title>Landing | Hotel Landing Page</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -175,6 +175,12 @@
                         <li class="nav-item">
                             <a href="/guest/dashboard/guest" class="nav-link">Wisata Terdekat</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/guest/dashboard/history" class="nav-link">History</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="/dashboard/histori" class="nav-link">History</a>
+                        </li> -->
                     </ul>
                 </div>
 
@@ -206,8 +212,23 @@
         <!-- case 2 buatkan rute untuk detail kamar yang pilih oleh user  -->
          <!-- cek apakah beberapa value dari array id_tipe_kamar ada di array result? -->
           
-        @case(in_array(explode("_", $result['segment3'])[1], $ids) && in_array('dashboard', $result))
+        @case(($result['segment3']) !== null && in_array(array_key_exists(1, explode("_", $result['segment3'])) ? explode("_", $result['segment3'])[1] : "", $ids) && in_array('dashboard', $result))
             @include('guest.list_kamar_detail')
+        @break
+        <!-- case 3 buatkan rute untuk Pembayaran setelah klik booking oleh user -->
+        <!-- break -->
+        @case(in_array('pembayaran', $result) && in_array('dashboard', $result))
+            @include('guest.list_pembayaran')
+        @break
+
+        @case(in_array('history', $result) && in_array('dashboard', $result))
+            @include('guest.list_histori_booking')
+        @break
+        <!-- case 4 buatkan rute untuk histori bookingan tombol klik berada pada header -->
+            <!-- include('guest.list_histori_booking') -->
+        @case(in_array('verifikasi', $result) && in_array('dashboard', $result))
+            @include('guest.list_verifikasi_booking')
+        @break
         @endswitch
         <!-- break -->
     </div>

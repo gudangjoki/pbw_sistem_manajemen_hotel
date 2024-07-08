@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('room_bookings', function (Blueprint $table) {
             $table->uuid('id_booking_room')->primary();
             $table->string('username');
-            $table->bigInteger('id_kamar')->unsigned();
+            $table->bigInteger('id_kamar')->unsigned()->nullable();
+            $table->string('id_tipe_kamar');
             $table->enum('status', ['pending', 'confirmed', 'checked_in', 'checked_out', 'cancelled'])->default('pending');
             $table->integer('harga_kamar')->nullable();
             $table->date('check_in');

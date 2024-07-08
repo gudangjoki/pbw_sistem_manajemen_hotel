@@ -48,18 +48,27 @@
                                 </p>
                             </div>
 
-                            <div class="input-group my-3">
-                                <p class="text-muted">Checkin</p>
-                                <input id="dp1" type="text" class="ml-3 form-control clickable input-md" id="DtChkIn" placeholder="Check-In" name="check_in" required autocomplete="off">
-                            </div>
-                            <div class="input-group">
-                                <p class="text-muted">Checkout</p>
-                                <input id="dp2" type="text" class="ml-3 form-control clickable input-md" id="DtChkOut" placeholder="Check-Out" name="check_out" required autocomplete="off">
-                            </div>
-                            <div class="text-right mt-5 mb-3">
-                                <a href="#" class="btn btn-md btn-primary">Submit</a>
-                            </div>
-                        
+                            <form action="/check_date_temp" method="POST">
+                            @csrf
+                                <div class="input-group my-3">
+                                    <p class="text-muted">Checkin</p>
+                                    <input id="dp1" type="text" class="ml-3 form-control clickable input-md" id="DtChkIn" placeholder="Check-In" name="check_in" required autocomplete="off">
+                                </div>
+                                <div class="input-group">
+                                    <p class="text-muted">Checkout</p>
+                                    <input id="dp2" type="text" class="ml-3 form-control clickable input-md" id="DtChkOut" placeholder="Check-Out" name="check_out" required autocomplete="off">
+                                </div>
+                                <input type="text" name="id" value="{{$detail->id_tipe_kamar}}" hidden>
+                                <input type="text" name="nama" value="{{$detail->nama_tipe_kamar}}" hidden>
+                                <input type="text" name="harga" value="{{$detail->harga_kamar}}" hidden>
+                                <input type="text" name="deskripsi" value="{{$detail->deskripsi}}" hidden>
+                                <input type="text" name="virtual_account" value="{{$va}}" hidden>
+                                <div class="text-right mt-5 mb-3">
+                                    
+                                    <!-- <a href="/guest/dashboard/pembayaran" class="btn btn-md btn-primary">Submit</a> -->
+                                    <button type="submit" class="btn btn-md btn-primary">Submit</button>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>
