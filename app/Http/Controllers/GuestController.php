@@ -153,7 +153,13 @@ class GuestController extends Controller
         }
     }
 
-    public function show_feature(Request $request, $section) {
+    public function delete_booking_room(string $id_booking_room) {
+        DB::table('booking')->delete($id_booking_room);
+
+        return redirect('/guest/dashboard/home');
+    }
+
+    public function show_feature(Request $request, $section, $history_id = null) {
         error_log('knt: ' . $request->fullUrl());
         $url = $request->fullUrl();
     
@@ -172,6 +178,9 @@ class GuestController extends Controller
         $ids = Helper::getId();
         $status = null;
         $va = null;
+        $booking = null;
+        $laterDays = null;
+        $bookings = [];
 
         // landing page
         if (in_array('home', $result) && in_array('dashboard', $result)) {
@@ -217,8 +226,31 @@ class GuestController extends Controller
             }
         }
 
-        else if (in_array('history', $result) && in_array('dashboard', $result)) {
-            
+        else if (!in_array($history_id, $result) && in_array('history', $result) && in_array('dashboard', $result)) {
+            if (!$request->session()->has('user')) {
+                return redirect('/login')->withErrors('error', 'sesi anda sudah habis, silahkan login kembali');
+            }
+
+            $user = $request->session()->get('user');
+            $bookings = DB::table('room_bookings')->where('username', $user['username'])->get();
+        }
+
+        else if (in_array($history_id, $result) && in_array('history', $result) && in_array('dashboard', $result)) {
+            $booking = DB::table('room_bookings')->where('id_booking_room', $history_id)->first();
+
+            // dd($booking);
+
+            if (!$booking) {
+                return redirect()->back()->withErrors('error', 'booking id not found');
+            }
+
+            $laterDays = Carbon::now()->addDays(3);
+
+            // dd($laterDays < $booking->check_in);
+
+            // if ($laterDays > $booking->check_in) {
+
+            // }
         }
 
         else if (($result['segment3']) !== null && in_array(array_key_exists(1, explode("_", $result['segment3'])) ? explode("_", $result['segment3'])[1] : "", $ids) && in_array('dashboard', $result)) {
@@ -244,6 +276,10 @@ class GuestController extends Controller
             'detail' => $kategori,
             'status' => $status,
             'id_tipe_kamar' => $id_tipe_kamar,
+            'bookings' => $bookings,
+            'history_id' => $history_id,
+            'booking' => $booking,
+            'later_days' => $laterDays
             // 'section' => $section,
             // 'books' => $books,
             // 'pinjam' => $pinjam,

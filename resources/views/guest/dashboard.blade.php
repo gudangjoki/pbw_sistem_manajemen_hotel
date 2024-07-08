@@ -221,12 +221,12 @@
             @include('guest.list_pembayaran')
         @break
 
-        @case(in_array('history', $result) && in_array('dashboard', $result))
+        @case(!in_array($history_id, $result) && in_array('history', $result) && in_array('dashboard', $result))
             @include('guest.list_histori_booking')
         @break
         <!-- case 4 buatkan rute untuk histori bookingan tombol klik berada pada header -->
             <!-- include('guest.list_histori_booking') -->
-        @case(in_array('verifikasi', $result) && in_array('dashboard', $result))
+        @case(in_array($history_id, $result) && in_array('history', $result) && in_array('dashboard', $result))
             @include('guest.list_verifikasi_booking')
         @break
         @endswitch

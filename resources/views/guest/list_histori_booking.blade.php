@@ -16,20 +16,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($bookings as $booking)
                         <tr>
-                            <td>1</td>
-                            <td>Call of Duty</td>
-                            <td>455-981-221</td>
-                            <td>El snort testosterone trophy driving gloves handsome</td>
-                            <td>$64.50</td>
-                            <td><span class="badge badge-warning">Belum Terverifikasi</span></td>
-                            <td class="project-actions text-right">              
-                                <buttontype="button" class="btn btn-primary btn-sm">
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$booking->id_tipe_kamar}}</td>
+                            <td>{{$booking->id_booking_room}}</td>
+                            <td>{{$booking->check_in}}</td>
+                            <td>{{$booking->check_out}}</td>
+                            <td><span class="badge badge-warning">{{$booking->status}}</span></td>
+                            <td class="project-actions text-right"> 
+                            @if($booking->status != 'pending')             
+                                <a href="/guest/dashboard/history/{{$booking->id_booking_room}}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-folder"></i> View
-                                </button>
+                                </a>
+                            @endif
                             </td>
                         </tr>
-                        <tr>
+                        @endforeach
+                        <!-- <tr>
                             <td>2</td>
                             <td>Call of Duty</td>
                             <td>455-981-221</td>
@@ -54,7 +58,7 @@
                                     <i class="fas fa-folder"></i> View
                                 </button>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
