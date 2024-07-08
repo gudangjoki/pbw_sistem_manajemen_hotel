@@ -22,21 +22,22 @@
         </tr>
     </thead>
     <tbody>
+        @foreach($book_verify as $verify)
         <tr>
             <td>
-                1
+                {{$loop->iteration}}
             </td>
             <td>
-                1
+                {{$verify->username}}
             </td>
             <td>
-                1
+                {{$verify->check_in}}
             </td>
             <td>
-                1
+                {{$verify->check_out}}
             </td>
             <td>
-                1
+                {{$verify->status}}
             </td>
             <td class="project-actions text-right">  
                 <button type="submit" class="btn btn-warning btn-sm">
@@ -49,5 +50,6 @@
                 </button>
             </td>
         </tr>
+        @endforeach
     </tbody>
 </table>

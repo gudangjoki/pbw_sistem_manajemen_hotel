@@ -22,21 +22,22 @@
         </tr>
     </thead>
     <tbody>
+        @foreach ($booking_rooms as $booking)
         <tr>
             <td>
-                1
+                {{$loop->iteration}}
             </td>
             <td>
-                1
+                {{$booking->id_booking_room}}
             </td>
             <td>
-                1
+                {{$booking->check_in}}
             </td>
             <td>
-                1
+                {{$booking->check_out}}
             </td>
             <td>
-                1
+                {{$booking->status}}
             </td>
             <td class="project-actions text-right">  
                 <button type="submit" class="btn btn-warning btn-sm">
@@ -53,5 +54,6 @@
                 </button>
             </td>
         </tr>
+        @endforeach
     </tbody>
 </table>

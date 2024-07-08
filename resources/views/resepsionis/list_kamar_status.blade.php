@@ -27,26 +27,46 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($kamars as $kamar)
                 <tr>
                     <td>
-                        1
+                        {{$loop->iteration}}
                     </td>
                     <td>
-                        1
+                        {{ $kamar->id_tipe_kamar }}
                     </td>
                     <td>
-                        1
+                        {{ $kamar->nomor_kamar }}
                     </td>
                     <td>
-                        1
+                        {{ !$kamar->status_kamar ? "Not Available" : "Available" }}
                     </td>
+
+                    @if ($kamar->status_kamar == 0)
+                    <form action="/set_active/{{$kamar->id_kamar}}" method="POST">
+                        @csrf
+                        @method("PUT")
+                        <td class="project-actions text-right">  
+                            <button type="submit" class="btn btn-warning btn-sm">
+                                <i class="fas fa-pencil-alt"></i>
+                                Active
+                            </button>
+                        </td>
+                    </form>
+                    @else
+                    <form action="/set_non_active/{{$kamar->id_kamar}}" method="POST">
+                        @csrf
+                        @method("PUT")
                     <td class="project-actions text-right">  
                         <button type="submit" class="btn btn-warning btn-sm">
                             <i class="fas fa-pencil-alt"></i>
-                            1
+                            Not Active
                         </button>
                     </td>
+                    </form>
+                    @endif
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

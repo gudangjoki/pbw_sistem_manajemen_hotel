@@ -4,12 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Kamar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResepsionisController extends Controller
 {
     // public function index() {
     //     return view('resepsionis.dashboard');
     // }
+
+    // public function update_kamar_status(Request $request, string $id_kamar) {
+    //     if($request->off)
+    //     Kamar::where('id_kamar', $id_kamar)->update(['status_kamar', 1]);
+    // }
+
+    public function set_room_active(string $id_kamar) {
+        Kamar::where('id_kamar', $id_kamar)->update(['status_kamar' => 1]);
+
+        return redirect("/resepsionis/dashboard/list_kamar_status")->with('status', 'berhasil update status kamar');
+    }
+
+    public function set_room_unactive(string $id_kamar) {
+        Kamar::where('id_kamar', $id_kamar)->update(['status_kamar' => 0]);
+
+        return redirect("/resepsionis/dashboard/list_kamar_status")->with('status', 'berhasil update status kamar');
+    }
 
     public function resepsionis_dashboard(Request $request) {
 
@@ -21,6 +39,12 @@ class ResepsionisController extends Controller
     
         $segments = explode('/', trim($parsed_path_url, '/'));
 
+        // inisialisasi variabel
+
+        $kamars = [];
+        $booking_rooms = [];
+        $book_verify = [];
+
         foreach ($segments as $index => $segment) {
             $result['segment' . ($index + 1)] = $segment;
         }
@@ -29,8 +53,27 @@ class ResepsionisController extends Controller
             
         }
 
+        // poin 2
+        else if (in_array('list_konfirmasi', $result) && in_array('dashboard', $result)) {
+            $booking_rooms = DB::table('room_bookings')->whereNot('status', 'cancelled')->whereNot('status', 'pending')->get();
+        }
+
+        // poin 3
+        else if (in_array('list_kamar_status', $result) && in_array('dashboard', $result)) {
+
+            $kamars = Kamar::all();
+        }
+
+        // poin 7
+        else if (in_array('list_verifikasi', $result) && in_array('dashboard', $result)) {
+            $book_verify = DB::table('room_bookings')->where('status', 'pending')->where('status', 'confirmed')->get();
+        }
+
         return view('resepsionis.dashboard', [
-            'result' => $result
+            'result' => $result,
+            'kamars' => $kamars,
+            'booking_rooms' => $booking_rooms,
+            'book_verify' => $book_verify
         ]);
     }
 

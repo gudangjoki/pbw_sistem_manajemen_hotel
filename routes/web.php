@@ -38,3 +38,6 @@ Route::post('/pay_room_booking', [GuestController::class, 'create_pay_booking'])
 Route::get('/resepsionis/dashboard/{section}', [ResepsionisController::class, 'resepsionis_dashboard']);
 
 Route::delete('/cancel/{id_booking_room}', [GuestController::class, 'delete_booking_room']);
+
+Route::put('/set_active/{id_kamar}', [ResepsionisController::class, 'set_room_active']);
+Route::put('/set_non_active/{id_kamar}', [ResepsionisController::class, 'set_room_unactive']);
