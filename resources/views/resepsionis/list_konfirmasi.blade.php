@@ -48,18 +48,29 @@
                         {{$booking->status}}
                     </td>
                     <td class="project-actions text-right">  
-                        <a href="{{ route('resepsionis.detail_konfirmasi') }}" class="btn btn-info btn-sm">
+                        <!-- <a href="{{ route('resepsionis.detail_konfirmasi') }}" class="btn btn-info btn-sm">
                             <i class="fas fa-pencil-alt"></i>
                             Konfirmasi
-                        </a>
-                        <button type="submit" class="btn btn-success btn-sm">
-                            <i class="fas fa-pencil-alt"></i>
-                            Cekin
-                        </button>
-                        <button type="submit" class="btn btn-warning btn-sm">
-                            <i class="fas fa-pencil-alt"></i>
-                            Cekout
-                        </button>
+                        </a> -->
+                        @if($booking->status == 'confirmed')
+                        <form action="/check_in/{{$booking->id_booking_room}}" method="POST">
+                            @csrf
+                            @method("PUT")
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="fas fa-pencil-alt"></i>
+                                Cekin
+                            </button>
+                        </form>
+                        @else if($booking->status == 'checked_in')
+                        <form action="/check_out/{{$booking->id_booking_room}}" method="POST">
+                            @csrf
+                            @method("PUT")
+                            <button type="submit" class="btn btn-warning btn-sm">
+                                <i class="fas fa-pencil-alt"></i>
+                                Cekout
+                            </button>
+                        </form>
+                        @endif
                     </td>
                 </tr>
         @endforeach

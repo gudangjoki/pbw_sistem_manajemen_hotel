@@ -13,12 +13,12 @@ class KamarTableSeeder extends Seeder
             [
                 'nomor_kamar' => '101',
                 'id_tipe_kamar' => 'STD',
-                'status_kamar' => 'available',
+                'status_kamar' => 1,
             ],
             [
                 'nomor_kamar' => '102',
                 'id_tipe_kamar' => 'DLX',
-                'status_kamar' => 'available',
+                'status_kamar' => 1,
             ],
         ]);
     }

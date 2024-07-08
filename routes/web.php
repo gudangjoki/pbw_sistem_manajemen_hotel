@@ -48,3 +48,6 @@ Route::delete('/cancel/{id_booking_room}', [GuestController::class, 'delete_book
 
 Route::put('/set_active/{id_kamar}', [ResepsionisController::class, 'set_room_active']);
 Route::put('/set_non_active/{id_kamar}', [ResepsionisController::class, 'set_room_unactive']);
+
+Route::put('/check_in/{id_booking_room}', [ResepsionisController::class, 'check_in_room_booking']);
+Route::put('/check_out/{id_booking_room}', [ResepsionisController::class, 'check_out_room_booking']);

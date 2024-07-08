@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kamar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -40,6 +41,28 @@ class ResepsionisController extends Controller
     //     if($request->off)
     //     Kamar::where('id_kamar', $id_kamar)->update(['status_kamar', 1]);
     // }
+
+    public function check_in_room_booking(string $id_booking_room) {
+        $data = DB::table('room_bookings')->where('id_booking_room', $id_booking_room)->first();
+        $timeNow = Carbon::now()->date;
+        if ($timeNow != $data->check_in) {
+            return redirect()->back()->withErrors('error', 'failed to post');
+        }
+
+        DB::table('room_bookings')->update(['status' => 'checked_in']);
+        return redirect()->back()->with('status', 'sukses check in');
+    }
+
+    public function check_out_room_booking(string $id_booking_room) {
+        $data = DB::table('room_bookings')->where('id_booking_room', $id_booking_room)->first();
+        $timeNow = Carbon::now()->date;
+        if ($timeNow != $data->check_out) {
+            return redirect()->back()->withErrors('error', 'failed to post');
+        }
+
+        DB::table('room_bookings')->update(['status' => 'checked_out']);
+        return redirect()->back()->with('status', 'sukses check out');
+    }
 
     public function set_room_active(string $id_kamar) {
         Kamar::where('id_kamar', $id_kamar)->update(['status_kamar' => 1]);
@@ -90,7 +113,7 @@ class ResepsionisController extends Controller
 
         // poin 7
         else if (in_array('list_verifikasi', $result) && in_array('dashboard', $result)) {
-            $book_verify = DB::table('room_bookings')->where('status', 'pending')->where('status', 'confirmed')->get();
+            $book_verify = DB::table('room_bookings')->where('status', 'pending')->get();
         }
 
         return view('resepsionis.dashboard', [
