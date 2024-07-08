@@ -171,6 +171,13 @@
                 borderColor    : '#f39c12' //yellow
                 },
                 {
+                title          : 'Test b5',
+                start          : new Date(y, m, d - 15),
+                end            : new Date(y, m, d - 5),
+                backgroundColor: '#f39c12', //yellow
+                borderColor    : '#f39c12' //yellow
+                },
+                {
                 title          : 'Meeting',
                 start          : new Date(y, m, d, 10, 30),
                 allDay         : false,

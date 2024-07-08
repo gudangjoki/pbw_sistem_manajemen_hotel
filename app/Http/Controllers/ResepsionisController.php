@@ -10,7 +10,27 @@ class ResepsionisController extends Controller
     // public function index() {
     //     return view('resepsionis.dashboard');
     // }
+    public function showListKonfirmasi()
+    {
+        return view('resepsionis.list_konfirmasi');
+    }
 
+    public function showListVerifikasi()
+    {
+        return view('resepsionis.list_verifikasi');
+    }
+    public function showCalender()
+    {
+        return view('resepsionis.calender');
+    }
+    public function showDetailVerifikasi()
+    {
+        return view('resepsionis.detail_verifikasi');
+    }
+    public function showDetailKonfirmasi()
+    {
+        return view('resepsionis.detail_konfirmasi');
+    }
     public function resepsionis_dashboard(Request $request) {
 
         error_log('knt: ' . $request->fullUrl());

@@ -24,7 +24,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="pageResepsionis.php?page=board" class="nav-link">
+                    <a href="{{ route('resepsionis.list_konfirmasi') }}" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pageResepsionis.php?page=cekdta" class="nav-link active">
+                    <a href="{{ route('resepsionis.list_verifikasi') }}" class="nav-link active">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Data Kamar
@@ -48,7 +48,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pageResepsionis.php?page=cekdta" class="nav-link">
+                    <a href="{{ route('resepsionis.list_konfirmasi') }}" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Data Konfirmasi
@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pageResepsionis.php?page=cekdta" class="nav-link">
+                    <a href="{{ route('resepsionis.list_verifikasi') }}" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Data Verifikasi
@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pageResepsionis.php?page=cekdta" class="nav-link">
+                    <a href="{{ route('resepsionis.calender') }}" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Calender
