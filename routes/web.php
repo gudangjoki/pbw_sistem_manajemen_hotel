@@ -34,3 +34,5 @@ Route::get('/guest/dashboard/{section}', [GuestController::class, 'show_feature'
 
 Route::post('/check_date_temp', [GuestController::class, 'send_to_payment']);
 Route::post('/pay_room_booking', [GuestController::class, 'create_pay_booking']);
+
+Route::get('/resepsionis/dashboard/{section}', [ResepsionisController::class, 'resepsionis_dashboard']);

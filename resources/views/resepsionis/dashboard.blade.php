@@ -25,7 +25,29 @@
         <!-- /.navbar -->
         @include('../component.layout.sidebar')
         <div class="content-wrapper">
-            @include('resepsionis.calender')
+        @switch($result)
+            @case(in_array('calender', $result) && in_array('dashboard', $result))
+                @include('resepsionis.calender')
+            @break
+            @case(in_array('detail_kamar', $result) && in_array('dashboard', $result))
+                @include('resepsionis.detail_kamar')
+            @break
+            @case(in_array('detail_konfirmasi', $result) && in_array('dashboard', $result))
+                @include('resepsionis.detail_konfirmasi')
+            @break
+            @case(in_array('detail_verifikasi', $result) && in_array('dashboard', $result))
+                @include('resepsionis.detail_verifikasi')
+            @break
+            @case(in_array('list_kamar_status', $result) && in_array('dashboard', $result))
+                @include('resepsionis.list_kamar_status')
+            @break
+            @case(in_array('list_konfirmasi', $result) && in_array('dashboard', $result))
+                @include('resepsionis.list_konfirmasi')
+            @break
+            @case(in_array('list_verifikasi', $result) && in_array('dashboard', $result))
+                @include('resepsionis.list_verifikasi')
+            @break
+        @endswitch
         </div>
 
         @include('../component.layout.footer')

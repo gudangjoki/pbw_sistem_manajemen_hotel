@@ -7,8 +7,31 @@ use Illuminate\Http\Request;
 
 class ResepsionisController extends Controller
 {
-    public function index() {
-        return view('resepsionis.dashboard');
+    // public function index() {
+    //     return view('resepsionis.dashboard');
+    // }
+
+    public function resepsionis_dashboard(Request $request) {
+
+        error_log('knt: ' . $request->fullUrl());
+        $url = $request->fullUrl();
+    
+        $parsed_path_url = parse_url($url);
+        $parsed_path_url = isset($parsed_path_url['path']) ? $parsed_path_url['path'] : '';
+    
+        $segments = explode('/', trim($parsed_path_url, '/'));
+
+        foreach ($segments as $index => $segment) {
+            $result['segment' . ($index + 1)] = $segment;
+        }
+
+        if (in_array('calender', $result) && in_array('dashboard', $result)) {
+            
+        }
+
+        return view('resepsionis.dashboard', [
+            'result' => $result
+        ]);
     }
 
     public function assign_new_room(Request $request) {
