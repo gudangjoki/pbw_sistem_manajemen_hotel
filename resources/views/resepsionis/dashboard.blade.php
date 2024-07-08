@@ -172,8 +172,8 @@
                 },
                 {
                 title          : 'Test b5',
-                start          : new Date(y, m, d - 15),
-                end            : new Date(y, m, d - 5),
+                start          : new Date(y, m, d),
+                end            : new Date(y, m, d + 2),
                 backgroundColor: '#f39c12', //yellow
                 borderColor    : '#f39c12' //yellow
                 },

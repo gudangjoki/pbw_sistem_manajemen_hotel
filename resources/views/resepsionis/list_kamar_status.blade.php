@@ -1,6 +1,6 @@
 <div class="content-header">
     <div class="container-fluid px-md-5 mt-md-5 ml-0 mt-0">
-        <h1>List Kamar</h1>
+        <h1>List Status Kamar</h1>
     </div><!-- /.container-fluid -->
 </div>
 <!-- Main content -->
@@ -21,7 +21,7 @@
                     <th style="width: 15%">
                         Status 
                     </th>
-                    <th style="width: 15%">
+                    <th style="width: 10%">
                         Action 
                     </th>
                 </tr>
@@ -43,7 +43,7 @@
                     <td class="project-actions text-right">  
                         <button type="submit" class="btn btn-warning btn-sm">
                             <i class="fas fa-pencil-alt"></i>
-                            1
+                            Edit
                         </button>
                     </td>
                 </tr>

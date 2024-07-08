@@ -42,3 +42,4 @@ Route::get('/resepsionis/dashboard/calender', [ResepsionisController::class, 'sh
 
 Route::get('/resepsionis/dashboard/detail_verifikasi', [ResepsionisController::class, 'showDetailVerifikasi'])->name('resepsionis.detail_verifikasi');
 Route::get('/resepsionis/dashboard/detail_konfirmasi', [ResepsionisController::class, 'showDetailKonfirmasi'])->name('resepsionis.detail_konfirmasi');
+Route::get('/resepsionis/dashboard/list_kamar_status', [ResepsionisController::class, 'showDetailKonfirmasi'])->name('resepsionis.list_kamar_status');

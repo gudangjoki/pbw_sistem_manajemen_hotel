@@ -31,6 +31,10 @@ class ResepsionisController extends Controller
     {
         return view('resepsionis.detail_konfirmasi');
     }
+    public function showStatusKamar()
+    {
+        return view('resepsionis.list_kamar_status');
+    }
     public function resepsionis_dashboard(Request $request) {
 
         error_log('knt: ' . $request->fullUrl());
