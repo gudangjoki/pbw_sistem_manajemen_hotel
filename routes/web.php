@@ -36,3 +36,5 @@ Route::post('/check_date_temp', [GuestController::class, 'send_to_payment']);
 Route::post('/pay_room_booking', [GuestController::class, 'create_pay_booking']);
 
 Route::get('/resepsionis/dashboard/{section}', [ResepsionisController::class, 'resepsionis_dashboard']);
+
+Route::delete('/cancel/{id_booking_room}', [GuestController::class, 'delete_booking_room']);

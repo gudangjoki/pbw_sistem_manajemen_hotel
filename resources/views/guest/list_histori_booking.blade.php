@@ -29,7 +29,7 @@
                                 <a href="/guest/dashboard/history/{{$booking->id_booking_room}}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-folder"></i> View
                                 </a>
-                                @endif
+                            @endif
                             </td>
                         </tr>
                         @endforeach
