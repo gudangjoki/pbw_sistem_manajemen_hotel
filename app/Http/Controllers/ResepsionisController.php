@@ -100,7 +100,7 @@ class ResepsionisController extends Controller
             'status' => $verified == 'accept' ? 'confirmed' : 'cancelled'
         ]);
 
-        return redirect()->back()->with('status', 'sukses update data booking');
+        return redirect('resepsionis/dashboard/list_verifikasi')->back()->with('status', 'sukses update data booking');
     }
 
     public function resepsionis_dashboard(Request $request, string $id_booking_room=null) {
