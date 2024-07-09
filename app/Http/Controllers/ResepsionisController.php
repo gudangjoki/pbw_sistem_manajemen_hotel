@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kamar;
+use App\Models\Hall;
+use App\Models\KategoriKamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -36,6 +38,10 @@ class ResepsionisController extends Controller
     {
         return view('resepsionis.list_kamar_status');
     }
+    public function showRuangan()
+    {
+        return view('resepsionis.list_ruangan');
+    }
     // public function update_kamar_status(Request $request, string $id_kamar) {
     //     if($request->off)
     //     Kamar::where('id_kamar', $id_kamar)->update(['status_kamar', 1]);
@@ -68,15 +74,53 @@ class ResepsionisController extends Controller
         $kamars = [];
         $booking_rooms = [];
         $book_verify = [];
+        $kategoriKamarGroups = [];
+        $halls = [];
+        $booking_halls = [];
 
         foreach ($segments as $index => $segment) {
             $result['segment' . ($index + 1)] = $segment;
         }
+        
 
         if (in_array('calender', $result) && in_array('dashboard', $result)) {
-            
-        }
+            $halls = Hall::all();
+            $booking_halls = DB::table('booking_hall')
+                ->join('hall', 'booking_hall.id_hall', '=', 'hall.id')
+                ->select('booking_hall.*', 'hall.*')
+                ->get();
+            $kamarQuery = DB::table('kategori_kamar')
+                ->leftJoin('kamar', 'kategori_kamar.id_tipe_kamar', '=', 'kamar.id_tipe_kamar')
+                ->select('kategori_kamar.nama_tipe_kamar', 'kamar.nomor_kamar', 'kamar.status_kamar')
+                ->orderBy('kategori_kamar.id_tipe_kamar')
+                ->orderBy('kamar.id_tipe_kamar')
+                ->get();
 
+            $booking_rooms = DB::table('room_bookings as rb')
+                ->join('kamar as k', 'rb.id_kamar', '=', 'k.id_kamar')
+                ->join('kategori_kamar as kk', 'k.id_tipe_kamar', '=', 'kk.id_tipe_kamar')
+                ->select('rb.*', 'k.*', 'kk.*')
+                ->get();
+
+            // Mengatur data dalam format yang sesuai dengan tampilan HTML yang diminta
+            foreach ($kamarQuery as $kamar) {
+                $namaTipeKamar = $kamar->nama_tipe_kamar;
+                $nomorKamar = $kamar->nomor_kamar;
+                $statusKamar = $kamar->status_kamar;
+
+                if (!isset($kategoriKamarGroups[$namaTipeKamar])) {
+                    $kategoriKamarGroups[$namaTipeKamar] = [];
+                }
+
+                $kategoriKamarGroups[$namaTipeKamar][] = [
+                    'nomor_kamar' => $nomorKamar,
+                    'status' => $statusKamar,
+                ];
+            }
+        }
+        else if (in_array('list_ruangan', $result) && in_array('dashboard', $result)) {
+            $halls = Hall::all();
+        }
         // poin 2
         else if (in_array('list_konfirmasi', $result) && in_array('dashboard', $result)) {
             $booking_rooms = DB::table('room_bookings')->whereNot('status', 'cancelled')->whereNot('status', 'pending')->get();
@@ -97,7 +141,10 @@ class ResepsionisController extends Controller
             'result' => $result,
             'kamars' => $kamars,
             'booking_rooms' => $booking_rooms,
-            'book_verify' => $book_verify
+            'book_verify' => $book_verify,
+            'kategoriKamarGroups' => $kategoriKamarGroups,
+            'halls' => $halls,
+            'booking_halls' => $booking_halls,
         ]);
     }
 

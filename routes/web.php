@@ -42,7 +42,7 @@ Route::get('/resepsionis/dashboard/list_verifikasi', [ResepsionisController::cla
 Route::get('/resepsionis/dashboard/list_kamar_status', [ResepsionisController::class, 'showStatusKamar'])->name('resepsionis.list_kamar_status');
 Route::get('/resepsionis/dashboard/calender', [ResepsionisController::class, 'showCalender'])->name('resepsionis.calender');
 Route::get('/resepsionis/dashboard/detail_verifikasi', [ResepsionisController::class, 'showDetailVerifikasi'])->name('resepsionis.detail_verifikasi');
-
+Route::get('/resepsionis/dashboard/list_ruangan', [ResepsionisController::class, 'showRuangan'])->name('resepsionis.list_ruangan');
 
 Route::delete('/cancel/{id_booking_room}', [GuestController::class, 'delete_booking_room']);
 
