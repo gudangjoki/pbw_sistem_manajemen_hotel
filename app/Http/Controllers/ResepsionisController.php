@@ -110,6 +110,7 @@ class ResepsionisController extends Controller
             $halls = Hall::all();
             $booking_halls = DB::table('booking_hall')
                 ->join('hall', 'booking_hall.id_hall', '=', 'hall.id')
+                ->where('booking_hall.status', '=', '1')
                 ->select('booking_hall.*', 'hall.*')
                 ->get();
             $kamarQuery = DB::table('kategori_kamar')
@@ -120,9 +121,11 @@ class ResepsionisController extends Controller
                 ->get();
 
             $booking_rooms = DB::table('room_bookings as rb')
+                ->select('rb.*', 'k.*', 'kk.*')
                 ->join('kamar as k', 'rb.id_kamar', '=', 'k.id_kamar')
                 ->join('kategori_kamar as kk', 'k.id_tipe_kamar', '=', 'kk.id_tipe_kamar')
-                ->select('rb.*', 'k.*', 'kk.*')
+                ->where('rb.status', 'confirmed')
+                ->orWhere('rb.status', 'checked_in')
                 ->get();
 
             // Mengatur data dalam format yang sesuai dengan tampilan HTML yang diminta

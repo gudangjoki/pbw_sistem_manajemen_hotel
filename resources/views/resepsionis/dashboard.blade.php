@@ -176,24 +176,29 @@
         })
     </script> -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
+            // Initialize BS custom file input
+            bsCustomFileInput.init();
+
+            // Initialize FullCalendar
             var bookingRooms = @json($booking_rooms);
             var bookingHalls = @json($booking_halls);
 
             var events = bookingRooms.map(function(booking) {
                 return {
-                    title: 'Kamar '+ booking.nomor_kamar + ' (' + booking.nama_tipe_kamar + ')', 
-                    start: booking.check_in, 
-                    end: booking.check_out, 
+                    title: 'Kamar '+ booking.nomor_kamar + ' (' + booking.nama_tipe_kamar + ')',
+                    start: booking.check_in,
+                    end: booking.check_out,
                     backgroundColor: booking.status === 'available' ? '#00a65a' : '#f56954',
                     borderColor: booking.status === 'available' ? '#00a65a' : '#f56954'
                 };
             });
-            var events = bookingHalls.map(function(booking) {
+
+            var eventsHall = bookingHalls.map(function(booking) {
                 return {
-                    title: booking.nama_ruangan + ' (' + booking.id_booking_hall+ ')', 
-                    start: booking.tgl+ 'T' + booking.jam_mulai, 
-                    end:  booking.tgl+ 'T' + booking.jam_selesai, 
+                    title: booking.nama_ruangan + ' (' + booking.id_booking_hall + ')',
+                    start: booking.tgl + 'T' + booking.jam_mulai,
+                    end:  booking.tgl + 'T' + booking.jam_selesai,
                     backgroundColor: booking.status === 'available' ? '#00a65a' : '#f56954',
                     borderColor: booking.status === 'available' ? '#00a65a' : '#f56954'
                 };
@@ -201,13 +206,14 @@
 
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 themeSystem: 'bootstrap',
-                events: events,
+                events: events.concat(eventsHall), // Merge events from both sources
                 editable: true,
                 droppable: false
             });
