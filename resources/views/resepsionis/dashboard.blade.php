@@ -35,7 +35,7 @@
             @case(in_array('detail_konfirmasi', $result) && in_array('dashboard', $result))
                 @include('resepsionis.detail_konfirmasi')
             @break
-            @case(in_array($id_booking_room, $result) && in_array('detail_verifikasi', $result) && in_array('dashboard', $result))
+            @case(in_array('detail_verifikasi', $result) && in_array('dashboard', $result))
                 @include('resepsionis.detail_verifikasi')
             @break
             @case(in_array('list_kamar_status', $result) && in_array('dashboard', $result))
@@ -193,7 +193,8 @@
                     borderColor: booking.status === 'available' ? '#00a65a' : '#f56954'
                 };
             });
-            var events = bookingHalls.map(function(booking) {
+
+            var eventsHall = bookingHalls.map(function(booking) {
                 return {
                     title: booking.nama_ruangan + ' (' + booking.id_booking_hall + ')',
                     start: booking.tgl + 'T' + booking.jam_mulai,
