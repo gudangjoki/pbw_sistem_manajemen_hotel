@@ -46,7 +46,7 @@
                                     
                                     <div class="d-flex flex-wrap">
                                         @foreach($kamars as $kamar)
-                                            @if($kamar['status']==1)
+                                            @if($kamar['status']=='1')
                                             <div class="btn btn-info mx-1 my-1">
                                                 {{ $kamar['nomor_kamar'] }}
                                             </div>
@@ -78,11 +78,11 @@
                                         @foreach($halls as $hall)
                                             @if($hall['status']=='Tersedia')
                                             <div class="btn btn-info mx-1 my-1">
-                                                {{ $hall['id'] }}
+                                                {{ $hall['nama_ruangan'] }}
                                             </div>
                                             @else
                                             <div class="btn btn-danger mx-1 my-1">
-                                                {{ $hall['id'] }}
+                                                {{ $hall['nama_ruangan'] }}
                                             </div>
                                             @endif
                                         @endforeach

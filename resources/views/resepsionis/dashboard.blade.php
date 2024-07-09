@@ -193,12 +193,11 @@
                     borderColor: booking.status === 'available' ? '#00a65a' : '#f56954'
                 };
             });
-
-            var eventsHall = bookingHalls.map(function(booking) {
+            var events = bookingHalls.map(function(booking) {
                 return {
                     title: booking.nama_ruangan + ' (' + booking.id_booking_hall + ')',
-                    start: booking.tgl+ 'T' + booking.jam_mulai,
-                    end:  booking.tgl+ 'T' + booking.jam_selesai,
+                    start: booking.tgl + 'T' + booking.jam_mulai,
+                    end:  booking.tgl + 'T' + booking.jam_selesai,
                     backgroundColor: booking.status === 'available' ? '#00a65a' : '#f56954',
                     borderColor: booking.status === 'available' ? '#00a65a' : '#f56954'
                 };
