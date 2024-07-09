@@ -47,6 +47,9 @@
             @case(in_array('list_verifikasi', $result) && in_array('dashboard', $result))
                 @include('resepsionis.list_verifikasi')
             @break
+            @case(in_array('list_ruangan', $result) && in_array('dashboard', $result))
+                @include('resepsionis.list_ruangan')
+            @break
         @endswitch
         </div>
 
@@ -88,34 +91,8 @@
         bsCustomFileInput.init();
         });
     </script>
-    <script>
+    <!-- <script>
         $(function () {
-
-            /* initialize the external events
-            -----------------------------------------------------------------*/
-            function ini_events(ele) {
-            ele.each(function () {
-
-                // create an Event Object (https://fullcalendar.io/docs/event-object)
-                // it doesn't need to have a start or end
-                var eventObject = {
-                title: $.trim($(this).text()) // use the element's text as the event title
-                }
-
-                // store the Event Object in the DOM element so we can get to it later
-                $(this).data('eventObject', eventObject)
-
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                zIndex        : 1070,
-                revert        : true, // will cause the event to go back to its
-                revertDuration: 0  //  original position after the drag
-                })
-
-            })
-            }
-
-            ini_events($('#external-events div.external-event'))
 
             /* initialize the calendar
             -----------------------------------------------------------------*/
@@ -126,26 +103,7 @@
                 y    = date.getFullYear()
 
             var Calendar = FullCalendar.Calendar;
-            var Draggable = FullCalendar.Draggable;
-
-            var containerEl = document.getElementById('external-events');
-            var checkbox = document.getElementById('drop-remove');
             var calendarEl = document.getElementById('calendar');
-
-            // initialize the external events
-            // -----------------------------------------------------------------
-
-            new Draggable(containerEl, {
-            itemSelector: '.external-event',
-            eventData: function(eventEl) {
-                return {
-                title: eventEl.innerText,
-                backgroundColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
-                borderColor: window.getComputedStyle( eventEl ,null).getPropertyValue('background-color'),
-                textColor: window.getComputedStyle( eventEl ,null).getPropertyValue('color'),
-                };
-            }
-            });
 
             var calendar = new Calendar(calendarEl, {
             headerToolbar: {
@@ -173,7 +131,7 @@
                 {
                 title          : 'Test b5',
                 start          : new Date(y, m, d),
-                end            : new Date(y, m, d + 2),
+                end            : new Date(y, m, d + 5),
                 backgroundColor: '#f39c12', //yellow
                 borderColor    : '#f39c12' //yellow
                 },
@@ -210,57 +168,58 @@
                 }
             ],
             editable  : true,
-            droppable : true, // this allows things to be dropped onto the calendar !!!
-            drop      : function(info) {
-                // is the "remove after drop" checkbox checked?
-                if (checkbox.checked) {
-                // if so, remove the element from the "Draggable Events" list
-                info.draggedEl.parentNode.removeChild(info.draggedEl);
-                }
-            }
+            droppable : false // Disable the drop functionality
             });
 
             calendar.render();
             // $('#calendar').fullCalendar()
-
-            /* ADDING EVENTS */
-            var currColor = '#3c8dbc' //Red by default
-            // Color chooser button
-            $('#color-chooser > li > a').click(function (e) {
-            e.preventDefault()
-            // Save color
-            currColor = $(this).css('color')
-            // Add color effect to button
-            $('#add-new-event').css({
-                'background-color': currColor,
-                'border-color'    : currColor
-            })
-            })
-            $('#add-new-event').click(function (e) {
-            e.preventDefault()
-            // Get value and make sure it is not null
-            var val = $('#new-event').val()
-            if (val.length == 0) {
-                return
-            }
-
-            // Create events
-            var event = $('<div />')
-            event.css({
-                'background-color': currColor,
-                'border-color'    : currColor,
-                'color'           : '#fff'
-            }).addClass('external-event')
-            event.text(val)
-            $('#external-events').prepend(event)
-
-            // Add draggable funtionality
-            ini_events(event)
-
-            // Remove event from text input
-            $('#new-event').val('')
-            })
         })
+    </script> -->
+    <script>
+        $(document).ready(function() {
+            // Initialize BS custom file input
+            bsCustomFileInput.init();
+
+            // Initialize FullCalendar
+            var bookingRooms = @json($booking_rooms);
+            var bookingHalls = @json($booking_halls);
+
+            var events = bookingRooms.map(function(booking) {
+                return {
+                    title: 'Kamar '+ booking.nomor_kamar + ' (' + booking.nama_tipe_kamar + ')',
+                    start: booking.check_in,
+                    end: booking.check_out,
+                    backgroundColor: booking.status === 'available' ? '#00a65a' : '#f56954',
+                    borderColor: booking.status === 'available' ? '#00a65a' : '#f56954'
+                };
+            });
+
+            var eventsHall = bookingHalls.map(function(booking) {
+                return {
+                    title: booking.nama_ruangan + ' (' + booking.id_booking_hall + ')',
+                    start: booking.tgl+ 'T' + booking.jam_mulai,
+                    end:  booking.tgl+ 'T' + booking.jam_selesai,
+                    backgroundColor: booking.status === 'available' ? '#00a65a' : '#f56954',
+                    borderColor: booking.status === 'available' ? '#00a65a' : '#f56954'
+                };
+            });
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                themeSystem: 'bootstrap',
+                events: events.concat(eventsHall), // Merge events from both sources
+                editable: true,
+                droppable: false
+            });
+
+            calendar.render();
+        });
     </script>
 </body>
 </html>

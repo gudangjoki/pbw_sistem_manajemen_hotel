@@ -19,6 +19,8 @@ return new class extends Migration
             $table->enum('status', ['pending', 'confirmed', 'checked_in', 'checked_out', 'cancelled'])->default('pending');
             $table->string('verification_note')->nullable();
             $table->integer('harga_kamar')->nullable();
+            $table->string('virtual_account');
+            $table->string('foto_bukti_bayar');
             $table->date('check_in');
             $table->date('check_out');
             // $table->string('verified_by');

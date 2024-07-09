@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             KategoriKamarTableSeeder::class,
             KamarTableSeeder::class,
             RoleUserTableSeeder::class,
+            HallTableSeeder::class
         ]);
     }
 }

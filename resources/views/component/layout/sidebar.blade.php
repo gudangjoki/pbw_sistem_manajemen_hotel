@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pageResepsionis.php?page=cekdta" class="nav-link">
+                    <a href="{{ route('resepsionis.list_ruangan') }}" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Data Ruangan

@@ -28,14 +28,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Tipe Kamar</label>
-                                    @foreach($rooms as $room)
                                     <select name="id_kamar" class="category form-control btn btn-default px-4 dropdown-toggle" onchange="getParamsQuery()">
                                         <option selected disabled>Tipe Kamar</option>
                                         <!-- foreach ( $categories as $category ) -->
+                                        @foreach($rooms as $room)
                                         <option value="{{$room->id_kamar}}">{{$room->id_tipe_kamar}} - {{$room->nomor_kamar}}</option>
+                                        @endforeach    
                                         <!-- endforeach -->
-                                    </select>       
-                                    @endforeach                        
+                                    </select>                    
                                 </div>
                                 <div class="form-group">
                                     <label>Deskripsi</label>

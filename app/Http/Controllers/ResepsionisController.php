@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kamar;
+use App\Models\Hall;
+use App\Models\KategoriKamar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +40,10 @@ class ResepsionisController extends Controller
     public function showStatusKamar()
     {
         return view('resepsionis.list_kamar_status');
+    }
+    public function showRuangan()
+    {
+        return view('resepsionis.list_ruangan');
     }
     // public function update_kamar_status(Request $request, string $id_kamar) {
     //     if($request->off)
@@ -118,15 +124,53 @@ class ResepsionisController extends Controller
         $rooms_tbl = [];
         $id_booking = null;
         $bookings = [];
+        $kategoriKamarGroups = [];
+        $halls = [];
+        $booking_halls = [];
 
         foreach ($segments as $index => $segment) {
             $result['segment' . ($index + 1)] = $segment;
         }
+        
 
         if (in_array('calender', $result) && in_array('dashboard', $result)) {
-            
-        }
+            $halls = Hall::all();
+            $booking_halls = DB::table('booking_hall')
+                ->join('hall', 'booking_hall.id_hall', '=', 'hall.id')
+                ->select('booking_hall.*', 'hall.*')
+                ->get();
+            $kamarQuery = DB::table('kategori_kamar')
+                ->leftJoin('kamar', 'kategori_kamar.id_tipe_kamar', '=', 'kamar.id_tipe_kamar')
+                ->select('kategori_kamar.nama_tipe_kamar', 'kamar.nomor_kamar', 'kamar.status_kamar')
+                ->orderBy('kategori_kamar.id_tipe_kamar')
+                ->orderBy('kamar.id_tipe_kamar')
+                ->get();
 
+            $booking_rooms = DB::table('room_bookings as rb')
+                ->join('kamar as k', 'rb.id_kamar', '=', 'k.id_kamar')
+                ->join('kategori_kamar as kk', 'k.id_tipe_kamar', '=', 'kk.id_tipe_kamar')
+                ->select('rb.*', 'k.*', 'kk.*')
+                ->get();
+
+            // Mengatur data dalam format yang sesuai dengan tampilan HTML yang diminta
+            foreach ($kamarQuery as $kamar) {
+                $namaTipeKamar = $kamar->nama_tipe_kamar;
+                $nomorKamar = $kamar->nomor_kamar;
+                $statusKamar = $kamar->status_kamar;
+
+                if (!isset($kategoriKamarGroups[$namaTipeKamar])) {
+                    $kategoriKamarGroups[$namaTipeKamar] = [];
+                }
+
+                $kategoriKamarGroups[$namaTipeKamar][] = [
+                    'nomor_kamar' => $nomorKamar,
+                    'status' => $statusKamar,
+                ];
+            }
+        }
+        else if (in_array('list_ruangan', $result) && in_array('dashboard', $result)) {
+            $halls = Hall::all();
+        }
         // poin 2
         else if (in_array('list_konfirmasi', $result) && in_array('dashboard', $result)) {
             $booking_rooms = DB::table('room_bookings')->whereNot('status', 'cancelled')->whereNot('status', 'pending')->get();
@@ -182,7 +226,16 @@ class ResepsionisController extends Controller
                 // $count_book = $book->count();
                 // $book_db = $book->get();
 
-                $bookings = DB::select( 'SELECT * FROM room_bookings WHERE id_kamar IN ('.implode(',', $kamarIds).') AND (check_in NOT BETWEEN ? AND ?) AND (check_out NOT BETWEEN ? AND ?)', [$book_verify->check_in, $book_verify->check_out, $book_verify->check_in, $book_verify->check_out] );
+                // cek untuk pertama kali
+                $count_h = DB::table('room_bookings')->where('id_tipe_kamar', $book_verify->id_tipe_kamar)->whereNot('status', 'pending')->count();
+                if ($count_h == 0) {
+                    $bookings = Kamar::where('id_tipe_kamar', $book_verify->id_tipe_kamar)->get();
+                } else if ($count_h > 0) {
+                    $bookings = DB::select( 'SELECT * FROM room_bookings WHERE id_kamar IN ('.implode(',', $kamarIds).') AND (check_in NOT BETWEEN ? AND ?) AND (check_out NOT BETWEEN ? AND ?)', [$book_verify->check_in, $book_verify->check_out, $book_verify->check_in, $book_verify->check_out] );
+                }
+
+                // cek data selanjutnya
+
 
 
                 if ($count_kamar <= count($bookings)) {
@@ -197,7 +250,7 @@ class ResepsionisController extends Controller
 
                 $rooms_tbl = Kamar::whereIn('id_kamar', $beds)->get();
 
-                // dd($rooms_tbl);
+                // dd($count_h);
                 // dd($otherBookings);
             } else {
                 return redirect()->withErrors('error', 'error data');
@@ -207,7 +260,12 @@ class ResepsionisController extends Controller
         return view('resepsionis.dashboard', [
             'result' => $result,
             'kamars' => $kamars,
-            // 'booking_rooms' => $booking_rooms,
+            'booking_rooms' => $booking_rooms,
+            'book_verify' => $book_verify,
+            'kategoriKamarGroups' => $kategoriKamarGroups,
+            'halls' => $halls,
+            'booking_halls' => $booking_halls,
+                     // 'booking_rooms' => $booking_rooms,
             // 'book_verify' => $book_verify,
             'id_booking_room' => $id_booking_room,
             // 'booked_beds' => $book_db,
