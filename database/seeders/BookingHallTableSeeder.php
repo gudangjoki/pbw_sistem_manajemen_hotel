@@ -37,6 +37,28 @@ class BookingHallTableSeeder extends Seeder
                 'id_hall' => 2,
                 'id_snack' => 2,
                 'status' => 1
+            ],
+            [
+                'username' => 3,
+                'tgl' => '2024-07-03',
+                'jam_mulai' => '14:00:00',
+                'jam_selesai' => '16:00:00',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'id_hall' => 3,
+                'id_snack' => 3,
+                'status' => 0
+            ],
+            [
+                'username' => 4,
+                'tgl' => '2024-07-04',
+                'jam_mulai' => '08:00:00',
+                'jam_selesai' => '10:00:00',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'id_hall' => 4,
+                'id_snack' => 4,
+                'status' => 0
             ]
         ]);
     }
