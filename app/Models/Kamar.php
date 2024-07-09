@@ -14,6 +14,7 @@ class Kamar extends Model
     protected $table = 'kamar';
 
     protected $fillable = [
+        'id_kamar',
         'nomor_kamar',
         'tipe_kamar',
         'harga_kamar',

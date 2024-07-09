@@ -61,7 +61,7 @@
                                 Cekin
                             </button>
                         </form>
-                        @else if($booking->status == 'checked_in')
+                        @elseif($booking->status == 'checked_in')
                         <form action="/check_out/{{$booking->id_booking_room}}" method="POST">
                             @csrf
                             @method("PUT")

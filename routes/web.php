@@ -35,7 +35,7 @@ Route::get('/guest/dashboard/{section}/{history_id?}', [GuestController::class, 
 Route::post('/check_date_temp', [GuestController::class, 'send_to_payment']);
 Route::post('/pay_room_booking', [GuestController::class, 'create_pay_booking']);
 
-Route::get('/resepsionis/dashboard/{section}', [ResepsionisController::class, 'resepsionis_dashboard'])->name('resepsionis.dashboard');
+Route::get('/resepsionis/dashboard/{section}/{id_booking_room?}', [ResepsionisController::class, 'resepsionis_dashboard'])->name('resepsionis.dashboard');
 Route::get('/resepsionis/dashboard/list_konfirmasi', [ResepsionisController::class, 'showListKonfirmasi'])->name('resepsionis.list_konfirmasi');
 Route::get('/resepsionis/dashboard/detail_konfirmasi', [ResepsionisController::class, 'showDetailKonfirmasi'])->name('resepsionis.detail_konfirmasi');
 Route::get('/resepsionis/dashboard/list_verifikasi', [ResepsionisController::class, 'showListVerifikasi'])->name('resepsionis.list_verifikasi');
@@ -51,3 +51,5 @@ Route::put('/set_non_active/{id_kamar}', [ResepsionisController::class, 'set_roo
 
 Route::put('/check_in/{id_booking_room}', [ResepsionisController::class, 'check_in_room_booking']);
 Route::put('/check_out/{id_booking_room}', [ResepsionisController::class, 'check_out_room_booking']);
+
+Route::put('/update_booking_room/{id_verifikasi}', [ResepsionisController::class, 'update_id_room']);

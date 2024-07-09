@@ -35,7 +35,7 @@
             @case(in_array('detail_konfirmasi', $result) && in_array('dashboard', $result))
                 @include('resepsionis.detail_konfirmasi')
             @break
-            @case(in_array('detail_verifikasi', $result) && in_array('dashboard', $result))
+            @case(in_array($id_booking_room, $result) && in_array('detail_verifikasi', $result) && in_array('dashboard', $result))
                 @include('resepsionis.detail_verifikasi')
             @break
             @case(in_array('list_kamar_status', $result) && in_array('dashboard', $result))

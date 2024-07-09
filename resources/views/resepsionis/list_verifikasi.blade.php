@@ -31,7 +31,7 @@
             </thead>
             <tbody>
                 @foreach($book_verify as $verify)
-        <tr>
+                <tr>
                     <td>
                         {{$loop->iteration}}
                     </td>
@@ -48,11 +48,7 @@
                         {{$verify->status}}
                     </td>
                     <td class="project-actions text-right">  
-                        <button type="submit" class="btn btn-warning btn-sm">
-                            <i class="fas fa-pencil-alt"></i>
-                            Verifikasi
-                        </button>
-                        <a href="{{ route('resepsionis.detail_verifikasi') }}" class="btn btn-info btn-sm">
+                        <a href="/resepsionis/dashboard/detail_verifikasi/{{$verify->id_booking_room}}" class="btn btn-info btn-sm">
                             <i class="fas fa-pencil-alt"></i>
                             Detail
                         </a>
