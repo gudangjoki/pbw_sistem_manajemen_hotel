@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_kamar');
             $table->string('nomor_kamar');
             $table->string('id_tipe_kamar');
-            $table->string('status_kamar');
+            $table->boolean('status_kamar');
             $table->timestamps();
 
             // $table->foreign('id_tipe_kamar')->references('id_tipe_kamar')->on('kategori_kamar');
