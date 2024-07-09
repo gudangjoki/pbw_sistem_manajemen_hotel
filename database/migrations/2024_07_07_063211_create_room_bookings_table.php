@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('id_kamar')->unsigned()->nullable();
             $table->string('id_tipe_kamar');
             $table->enum('status', ['pending', 'confirmed', 'checked_in', 'checked_out', 'cancelled'])->default('pending');
-            $table->string('verification_note')->nullable();
+            $table->string('catatan_verifikasi')->nullable();
             $table->integer('harga_kamar')->nullable();
             $table->string('virtual_account');
             $table->string('foto_bukti_bayar');

@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('resepsionis.list_kamar_status') }}" class="nav-link active">
+                    <a href="{{ route('resepsionis.list_kamar_status') }}" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Data Kamar
